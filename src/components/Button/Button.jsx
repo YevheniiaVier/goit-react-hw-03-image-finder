@@ -15,6 +15,7 @@ export const Button = ({ text, type, active, onClick, disabled }) => {
   );
 };
 
+
 Button.propTypes = {
   text: PropTypes.string,
   type: PropTypes.string.isRequired,
