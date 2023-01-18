@@ -11,7 +11,6 @@ import { Loader } from 'components/Loader/Loader';
 export class App extends Component {
   state = {
     searchQuery: '',
-    gallery: [],
   };
   handleSearchFormSubmit = searchQuery => {
     this.setState({ searchQuery });
