@@ -4,22 +4,42 @@ import { ToastContainer } from 'react-toastify';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { Container } from './App.styled';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
-import { Modal } from 'components/Modal/Modal';
+// import { Modal } from 'components/Modal/Modal';
 import { Button } from 'components/Button/Button';
-import { Loader } from 'components/Loader/Loader';
+// import { Loader } from 'components/Loader/Loader';
 
 export class App extends Component {
   state = {
     searchQuery: '',
+    page: 1,
+    images: [],
   };
   handleSearchFormSubmit = searchQuery => {
-    this.setState({ searchQuery });
+    this.setState({ searchQuery, page: 1, images: [] });
   };
+
+  loadMore = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
+  };
+  componentDidUpdate(_, prevState) {
+    if (
+      prevState.page !== this.state.page ||
+      prevState.searchQuery !== this.state.searchQuery
+    ) {
+      console.log('fetch data');
+    }
+  }
   render() {
     return (
       <Container>
         <Searchbar onSubmit={this.handleSearchFormSubmit} />
-        <ImageGallery searchQuery={this.state.searchQuery} />
+        <ImageGallery
+          handleLoading={this.handleLoading}
+          searchQuery={this.state.searchQuery}
+        />
+        <Button type="button" text="Load more" onClick={this.loadMore} />
         <ToastContainer />
       </Container>
     );

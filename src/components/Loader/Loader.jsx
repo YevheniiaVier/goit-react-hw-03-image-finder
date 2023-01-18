@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import { ThreeDots } from 'react-loader-spinner';
 import searchingImage from '../../images/searching.jpg';
 import {
@@ -23,4 +25,8 @@ export const Loader = ({ searchQuery }) => {
       <ErrorImage src={searchingImage} alt="searching fo images" />
     </StyledBox>
   );
+};
+
+Loader.propTypes = {
+  searchQuery: PropTypes.string.isRequired,
 };

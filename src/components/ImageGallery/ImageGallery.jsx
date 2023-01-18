@@ -1,4 +1,4 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Component } from 'react';
 // import { toast } from 'react-toastify';
 
@@ -14,10 +14,15 @@ export class ImageGallery extends Component {
     error: null,
     status: 'idle',
   };
+
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.searchQuery !== this.props.searchQuery) {
+    if (
+      prevProps.searchQuery !== this.props.searchQuery ||
+      prevProps.page !== this.props.page
+    ) {
+      console.log('fetch');
       this.setState({ status: 'pending' });
-      fetchImages(this.props.searchQuery)
+      fetchImages(this.props.searchQuery, this.props.page)
         .then(gallery => {
           if (!gallery.total) {
             return Promise.reject(
@@ -54,3 +59,7 @@ export class ImageGallery extends Component {
     }
   }
 }
+
+ImageGallery.propTypes = {
+  searchQuery: PropTypes.string.isRequired,
+};

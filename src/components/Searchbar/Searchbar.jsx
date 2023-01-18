@@ -1,4 +1,4 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import { FaSearchengin } from 'react-icons/fa';
 import { Component } from 'react';
@@ -36,7 +36,7 @@ export class Searchbar extends Component {
     return (
       <StyledHeader>
         <StyledForm onSubmit={this.handleSubmit}>
-          <StyledSearchBtn type="submit">
+          <StyledSearchBtn type="submit" disabled={this.props.isSubmitting}>
             <FaSearchengin />
             <StyledBtnLabel>Search</StyledBtnLabel>
           </StyledSearchBtn>
@@ -53,3 +53,7 @@ export class Searchbar extends Component {
     );
   }
 }
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
