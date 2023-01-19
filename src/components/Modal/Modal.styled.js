@@ -6,7 +6,11 @@ export const Backdrop = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 3;
 `;
 
 export const ModalContent = styled.div`
@@ -24,6 +28,8 @@ export const ModalContent = styled.div`
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
   display: flex;
   justify-content: center;
+  max-width: calc(100vw - 48px);
+  max-height: calc(100vh - 24px);
 `;
 
 // .Overlay {
@@ -40,8 +46,7 @@ export const ModalContent = styled.div`
 // }
 
 // .Modal {
-//   max-width: calc(100vw - 48px);
-//   max-height: calc(100vh - 24px);
+
 // }
 
 export const LargeImage = styled.img.attrs(props => ({

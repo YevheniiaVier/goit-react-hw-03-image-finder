@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { Container } from './App.styled';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
-import { Modal, ModalImage } from 'components/Modal/Modal';
+import { Modal } from 'components/Modal/Modal';
 import { Button } from 'components/Button/Button';
 import { Loader } from 'components/Loader/Loader';
 import { ImageAbsenceView } from 'components/ImagesAbsenceView/ImagesAbsenceView';
@@ -63,19 +63,16 @@ export class App extends Component {
   };
 
   onImgClick = e => {
-    // const { id, largeImageURL, alt } = e.currentTarget;
     const clickedImgId = Number(e.currentTarget.id);
     const foundImg = this.state.gallery.find(
       element => element.id === clickedImgId
     );
-    // console.log(foundImg);
-
     this.setState({
       clickedImg: foundImg,
     });
-
     this.toggleModal();
   };
+
   render() {
     const { gallery, status, error, showModal, clickedImg } = this.state;
 
