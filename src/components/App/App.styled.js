@@ -5,7 +5,4 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  // grid-template-columns: 1fr;
-  // grid-gap: 16px;
-  // padding-bottom: 24px;
 `;

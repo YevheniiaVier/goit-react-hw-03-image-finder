@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { Container } from './App.styled';
@@ -19,14 +19,27 @@ export class App extends Component {
     status: 'idle',
     showModal: false,
     clickedImg: {},
+    showButton: false,
   };
   componentDidUpdate(_, prevState) {
     const { searchQuery, page } = this.state;
 
     if (prevState.page !== page || prevState.searchQuery !== searchQuery) {
-      this.setState({ status: 'pending' });
+      this.setState({ status: 'pending', showButton: false });
       fetchImages(searchQuery, page)
         .then(gallery => {
+          if (gallery.length <= 11) {
+            this.setState({ showButton: false });
+            toast.warn(
+              `We're sorry, but you've reached the end of search results.`,
+              {
+                theme: 'colored',
+                pauseOnHover: true,
+              }
+            );
+          } else {
+            this.setState({ showButton: true });
+          }
           if (!gallery[0]) {
             return Promise.reject(
               new Error(
@@ -41,6 +54,7 @@ export class App extends Component {
               status: 'resolved',
             }));
           }
+          this.setState({ showButton: true });
           return this.setState({ gallery, status: 'resolved' });
         })
         .catch(error => this.setState({ error, status: 'rejected' }));
@@ -74,22 +88,25 @@ export class App extends Component {
   };
 
   render() {
-    const { gallery, status, error, showModal, clickedImg } = this.state;
+    const { gallery, status, error, showModal, clickedImg, showButton } =
+      this.state;
 
     return (
       <Container>
         <Searchbar onSubmit={this.handleSearchFormSubmit} />
-        {status === 'idle' && <h1>search Images here</h1>}
+        {/* {status === 'idle' && <h1>search Images here</h1>} */}
         {status === 'pending' && <Loader />}
         {status === 'rejected' && <ImageAbsenceView message={error.message} />}
         {status === 'resolved' && (
           <ImageGallery gallery={gallery} onImgClick={this.onImgClick} />
         )}
-        <Button type="button" text="Load more" onClick={this.loadMore} />
+        {showButton && (
+          <Button type="button" text="Load more" onClick={this.loadMore} />
+        )}
         {showModal && (
           <Modal onClose={this.toggleModal} clickedImg={clickedImg}></Modal>
         )}
-        <ToastContainer />
+        <ToastContainer autoClose={2000} />
       </Container>
     );
   }
