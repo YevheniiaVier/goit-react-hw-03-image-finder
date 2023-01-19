@@ -20,7 +20,6 @@ export class ImageGallery extends Component {
       prevProps.page !== this.props.page ||
       prevProps.searchQuery !== this.props.searchQuery
     ) {
-      console.log('fetch');
       this.setState({ status: 'pending' });
       fetchImages(this.props.searchQuery, this.props.page)
         .then(gallery => {
@@ -31,19 +30,18 @@ export class ImageGallery extends Component {
               )
             );
           }
-          // if (prevState.gallery) {
-          //   return this.setState(prevState => ({
-          //     ...prevState,
-          //     gallery: {
-          //       hits: [...(prevState.gallery?.hits || []), gallery.hits],
-          //     },
-          //     status: 'resolved',
-          //   }));
-          // }
+          if (this.props.page > 1) {
+            console.log('hello to you');
+            console.log(prevState);
 
-          console.log(prevState.gallery);
-          console.log(this.state.gallery);
-
+            return this.setState(prevState => ({
+              ...prevState,
+              gallery: {
+                hits: [...prevState.gallery?.hits, ...gallery.hits],
+              },
+              status: 'resolved',
+            }));
+          }
           return this.setState({ gallery, status: 'resolved' });
         })
         .catch(error => this.setState({ error, status: 'rejected' }));
