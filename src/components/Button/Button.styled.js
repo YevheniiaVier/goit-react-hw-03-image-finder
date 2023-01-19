@@ -1,27 +1,45 @@
 import styled from 'styled-components';
 
 export const StyledButton = styled.button`
-  padding: 8px 16px;
-  border-radius: 2px;
-  background-color: #3f51b5;
-  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  text-align: center;
-  display: inline-block;
-  color: #fff;
+  align-items: center;
+  appearance: none;
+  background-image: radial-gradient(
+    100% 100% at 100% 0,
+    #5adaff 0,
+    #5468ff 100%
+  );
   border: 0;
-  text-decoration: none;
+  border-radius: 6px;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgba(58, 65, 111, 0.5) 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #fff;
   cursor: pointer;
-  font-family: inherit;
+  display: inline-flex;
+  font-family: 'JetBrains Mono', monospace;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow, transform;
   font-size: 18px;
-  line-height: 24px;
-  font-style: normal;
-  font-weight: 500;
-  width: 180px;
-  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
   &:hover,
   &:focus {
-    background-color: #303f9f;
+    // box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+      rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+    transform: translateY(-2px);
   }
   transition: background-color 300ms 100ms;
 `;

@@ -40,7 +40,7 @@ export class Searchbar extends Component {
       <StyledHeader>
         <StyledForm onSubmit={this.handleSubmit}>
           <StyledSearchBtn type="submit" disabled={this.props.isSubmitting}>
-            <FaSearchengin />
+            <FaSearchengin size={30} />
             <StyledBtnLabel>Search</StyledBtnLabel>
           </StyledSearchBtn>
           <StyledInput
