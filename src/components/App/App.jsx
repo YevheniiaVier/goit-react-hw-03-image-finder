@@ -22,7 +22,7 @@ export class App extends Component {
     showButton: false,
   };
   componentDidUpdate(_, prevState) {
-    const { searchQuery, page, status } = this.state;
+    const { searchQuery, page } = this.state;
 
     if (prevState.page !== page || prevState.searchQuery !== searchQuery) {
       this.setState({ status: 'pending', showButton: false });
@@ -42,6 +42,7 @@ export class App extends Component {
           }
           if (!gallery[0]) {
             this.setState({ showButton: false });
+
             return Promise.reject(
               new Error(
                 `No images for ${searchQuery}. Please try something else`
@@ -95,7 +96,6 @@ export class App extends Component {
     return (
       <Container>
         <Searchbar onSubmit={this.handleSearchFormSubmit} />
-        {/* {status === 'idle' && <h1>search Images here</h1>} */}
         {status === 'pending' && <Loader />}
         {status === 'rejected' && <ImageAbsenceView message={error.message} />}
         {status === 'resolved' && (
