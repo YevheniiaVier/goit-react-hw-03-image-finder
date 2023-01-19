@@ -10,15 +10,15 @@ import { fetchImages } from 'api/imagesApi';
 
 export class ImageGallery extends Component {
   state = {
-    gallery: null,
+    gallery: {},
     error: null,
     status: 'idle',
   };
 
   componentDidUpdate(prevProps, prevState) {
     if (
-      prevProps.searchQuery !== this.props.searchQuery ||
-      prevProps.page !== this.props.page
+      prevProps.page !== this.props.page ||
+      prevProps.searchQuery !== this.props.searchQuery
     ) {
       console.log('fetch');
       this.setState({ status: 'pending' });
@@ -31,6 +31,19 @@ export class ImageGallery extends Component {
               )
             );
           }
+          // if (prevState.gallery) {
+          //   return this.setState(prevState => ({
+          //     ...prevState,
+          //     gallery: {
+          //       hits: [...(prevState.gallery?.hits || []), gallery.hits],
+          //     },
+          //     status: 'resolved',
+          //   }));
+          // }
+
+          console.log(prevState.gallery);
+          console.log(this.state.gallery);
+
           return this.setState({ gallery, status: 'resolved' });
         })
         .catch(error => this.setState({ error, status: 'rejected' }));

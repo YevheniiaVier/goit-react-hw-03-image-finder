@@ -23,21 +23,14 @@ export class App extends Component {
       page: prevState.page + 1,
     }));
   };
-  componentDidUpdate(_, prevState) {
-    if (
-      prevState.page !== this.state.page ||
-      prevState.searchQuery !== this.state.searchQuery
-    ) {
-      console.log('fetch data');
-    }
-  }
+
   render() {
     return (
       <Container>
         <Searchbar onSubmit={this.handleSearchFormSubmit} />
         <ImageGallery
-          handleLoading={this.handleLoading}
           searchQuery={this.state.searchQuery}
+          page={this.state.page}
         />
         <Button type="button" text="Load more" onClick={this.loadMore} />
         <ToastContainer />
