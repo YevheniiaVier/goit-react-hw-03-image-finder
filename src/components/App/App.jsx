@@ -41,6 +41,7 @@ export class App extends Component {
             this.setState({ showButton: true });
           }
           if (!gallery[0]) {
+            this.setState({ showButton: false });
             return Promise.reject(
               new Error(
                 `No images for ${searchQuery}. Please try something else`
