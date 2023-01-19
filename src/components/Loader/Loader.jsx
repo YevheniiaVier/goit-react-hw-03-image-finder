@@ -1,14 +1,7 @@
-import PropTypes from 'prop-types';
-
 import { ThreeDots } from 'react-loader-spinner';
-import searchingImage from '../../images/searching.jpg';
-import {
-  StyledBox,
-  ErrorImage,
-  ErrorMessage,
-} from '../ImagesAbsenceView/ImagesAbsenceView.styled';
+import { StyledBox } from '../ImagesAbsenceView/ImagesAbsenceView.styled';
 
-export const Loader = ({ searchQuery }) => {
+export const Loader = () => {
   return (
     <StyledBox>
       <ThreeDots
@@ -21,12 +14,6 @@ export const Loader = ({ searchQuery }) => {
         wrapperClassName=""
         visible={true}
       />
-      <ErrorMessage>{`Searching for ${searchQuery}, please wait`}</ErrorMessage>
-      <ErrorImage src={searchingImage} alt="searching fo images" />
     </StyledBox>
   );
-};
-
-Loader.propTypes = {
-  searchQuery: PropTypes.string.isRequired,
 };

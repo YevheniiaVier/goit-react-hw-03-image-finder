@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import searchingImage from '../../images/searching.jpg';
 import {
   StyledBox,
@@ -12,4 +14,8 @@ export const ImagePendingView = ({ searchQuery }) => {
       <ErrorImage src={searchingImage} alt="searching fo images" />
     </StyledBox>
   );
+};
+
+ImagePendingView.propTypes = {
+  searchQuery: PropTypes.string.isRequired,
 };
