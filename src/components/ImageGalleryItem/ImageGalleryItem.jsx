@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 
 import { GalleryImage, GalleryItem } from './ImageGalleryItem.styled';
 
-export const ImageGalleryItem = ({ src, largeImg, alt, id }) => {
+export const ImageGalleryItem = ({ src, largeImg, alt, id, onImgClick }) => {
   return (
     <GalleryItem>
-      <GalleryImage src={src} alt={alt} id={id} />
+      <GalleryImage onClick={onImgClick} src={src} alt={alt} id={id} />
     </GalleryItem>
   );
 };
