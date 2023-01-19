@@ -22,13 +22,13 @@ export class App extends Component {
     showButton: false,
   };
   componentDidUpdate(_, prevState) {
-    const { searchQuery, page } = this.state;
+    const { searchQuery, page, status } = this.state;
 
     if (prevState.page !== page || prevState.searchQuery !== searchQuery) {
       this.setState({ status: 'pending', showButton: false });
       fetchImages(searchQuery, page)
         .then(gallery => {
-          if (gallery.length <= 11) {
+          if (gallery.length <= 11 && page !== 1) {
             this.setState({ showButton: false });
             toast.warn(
               `We're sorry, but you've reached the end of search results.`,
