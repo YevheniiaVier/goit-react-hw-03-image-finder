@@ -23,31 +23,22 @@ export class App extends Component {
   };
   componentDidUpdate(_, prevState) {
     const { searchQuery, page } = this.state;
+    const prevPage = prevState.page;
+    const prevSearchQuery = prevState.searchQuery;
 
-    if (prevState.page !== page || prevState.searchQuery !== searchQuery) {
+    if (prevPage !== page || prevSearchQuery !== searchQuery) {
       this.setState({ status: 'pending', showButton: false });
       fetchImages(searchQuery, page)
         .then(gallery => {
           if (gallery.length <= 11 && page !== 1) {
             this.setState({ showButton: false });
-            toast.warn(
-              `We're sorry, but you've reached the end of search results.`,
-              {
-                theme: 'colored',
-                pauseOnHover: true,
-              }
-            );
+            onSearchEndNotice();
           } else {
             this.setState({ showButton: true });
           }
           if (!gallery[0]) {
             this.setState({ showButton: false });
-
-            return Promise.reject(
-              new Error(
-                `No images for ${searchQuery}. Please try something else`
-              )
-            );
+            return onSearchError(searchQuery);
           }
           if (page > 1) {
             return this.setState(prevState => ({
@@ -71,6 +62,7 @@ export class App extends Component {
     this.setState(prevState => ({
       page: prevState.page + 1,
     }));
+    onSmoothScroll();
   };
   toggleModal = () => {
     this.setState(({ showModal }) => ({
@@ -99,7 +91,11 @@ export class App extends Component {
         {status === 'pending' && <Loader />}
         {status === 'rejected' && <ImageAbsenceView message={error.message} />}
         {status === 'resolved' && (
-          <ImageGallery gallery={gallery} onImgClick={this.onImgClick} />
+          <ImageGallery
+            id="gallery"
+            gallery={gallery}
+            onImgClick={this.onImgClick}
+          />
         )}
         {showButton && (
           <Button type="button" text="Load more" onClick={this.loadMore} />
@@ -111,4 +107,31 @@ export class App extends Component {
       </Container>
     );
   }
+}
+
+function onSearchEndNotice() {
+  return toast.warn(
+    `We're sorry, but you've reached the end of search results.`,
+    {
+      theme: 'colored',
+      pauseOnHover: true,
+    }
+  );
+}
+
+function onSearchError(searchQuery) {
+  return Promise.reject(
+    new Error(`No images for ${searchQuery}. Please try something else`)
+  );
+}
+
+function onSmoothScroll() {
+  const { height: cardHeight } = document
+    .querySelector('#gallery')
+    .firstElementChild.getBoundingClientRect();
+  console.log(cardHeight);
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
 }

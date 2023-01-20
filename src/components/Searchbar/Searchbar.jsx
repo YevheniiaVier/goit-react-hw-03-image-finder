@@ -36,10 +36,12 @@ export class Searchbar extends Component {
   };
 
   render() {
+    const { searchText } = this.state;
+
     return (
       <StyledHeader>
         <StyledForm onSubmit={this.handleSubmit}>
-          <StyledSearchBtn type="submit" disabled={this.props.isSubmitting}>
+          <StyledSearchBtn type="submit">
             <FaSearchengin size={30} />
             <StyledBtnLabel>Search</StyledBtnLabel>
           </StyledSearchBtn>
@@ -47,7 +49,7 @@ export class Searchbar extends Component {
             type="text"
             autocomplete="off"
             autoFocus
-            value={this.state.searchText}
+            value={searchText}
             onChange={this.handleChange}
             placeholder="Search images and photos"
           />
