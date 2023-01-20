@@ -18,11 +18,6 @@ export class Searchbar extends Component {
     searchQuery: '',
   };
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   console.log(prevProps);
-  //   console.log(prevState);
-  // }
-
   handleChange = e => {
     this.setState({ searchQuery: e.currentTarget.value.toLowerCase() });
   };
