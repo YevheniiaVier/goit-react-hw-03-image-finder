@@ -40,14 +40,18 @@ export class App extends Component {
             this.setState({ showButton: false });
             return onSearchError(searchQuery);
           }
+
           if (page > 1) {
-            return this.setState(prevState => ({
-              ...prevState,
+            this.setState(prevState => ({
               gallery: [...prevState.gallery, ...gallery],
               status: 'resolved',
             }));
+            onSmoothScroll();
+            return;
           }
+
           this.setState({ showButton: true });
+
           return this.setState({ gallery, status: 'resolved' });
         })
         .catch(error => this.setState({ error, status: 'rejected' }));
@@ -62,7 +66,6 @@ export class App extends Component {
     this.setState(prevState => ({
       page: prevState.page + 1,
     }));
-    onSmoothScroll();
   };
   toggleModal = () => {
     this.setState(({ showModal }) => ({
@@ -90,13 +93,14 @@ export class App extends Component {
         <Searchbar onSubmit={this.handleSearchFormSubmit} />
         {status === 'pending' && <Loader />}
         {status === 'rejected' && <ImageAbsenceView message={error.message} />}
-        {status === 'resolved' && (
+        {gallery[0] && (
           <ImageGallery
             id="gallery"
             gallery={gallery}
             onImgClick={this.onImgClick}
           />
         )}
+        {status === 'pending' && gallery[0] && <Loader />}
         {showButton && (
           <Button type="button" text="Load more" onClick={this.loadMore} />
         )}

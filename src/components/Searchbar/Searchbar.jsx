@@ -18,6 +18,11 @@ export class Searchbar extends Component {
     searchQuery: '',
   };
 
+  // componentDidUpdate(prevProps, prevState) {
+  //   console.log(prevProps);
+  //   console.log(prevState);
+  // }
+
   handleChange = e => {
     this.setState({ searchQuery: e.currentTarget.value.toLowerCase() });
   };
@@ -25,6 +30,7 @@ export class Searchbar extends Component {
   handleSubmit = e => {
     e.preventDefault();
     if (this.state.searchQuery.trim() === '') {
+      console.log('empty searchbar');
       return toast.warn('Please enter something', {
         theme: 'colored',
         pauseOnHover: true,
