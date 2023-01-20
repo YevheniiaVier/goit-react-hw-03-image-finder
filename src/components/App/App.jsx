@@ -46,7 +46,7 @@ export class App extends Component {
               gallery: [...prevState.gallery, ...gallery],
               status: 'resolved',
             }));
-
+            onSmoothScroll();
             return;
           }
 
