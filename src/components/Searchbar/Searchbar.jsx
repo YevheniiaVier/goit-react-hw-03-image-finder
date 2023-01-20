@@ -25,7 +25,6 @@ export class Searchbar extends Component {
   handleSubmit = e => {
     e.preventDefault();
     if (this.state.searchQuery.trim() === '') {
-      console.log('empty searchbar');
       return toast.warn('Please enter something', {
         theme: 'colored',
         pauseOnHover: true,
@@ -38,7 +37,6 @@ export class Searchbar extends Component {
 
   render() {
     const { searchText } = this.state;
-
     return (
       <StyledHeader>
         <StyledForm onSubmit={this.handleSubmit}>
