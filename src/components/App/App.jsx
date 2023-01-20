@@ -37,7 +37,7 @@ export class App extends Component {
             this.setState({ showButton: true });
           }
           if (!gallery[0]) {
-            this.setState({ showButton: false });
+            this.setState({ gallery: [], showButton: false });
             return onSearchError(searchQuery);
           }
 
@@ -59,7 +59,7 @@ export class App extends Component {
   }
 
   handleSearchFormSubmit = searchQuery => {
-    this.setState({ searchQuery, page: 1, gallery: [] });
+    this.setState({ searchQuery, page: 1 });
   };
 
   loadMore = () => {

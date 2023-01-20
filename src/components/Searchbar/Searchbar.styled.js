@@ -19,7 +19,7 @@ export const StyledHeader = styled.header`
   background-image: radial-gradient(
     100% 100% at 100% 0,
     #5adaff 0,
-    #5468ff 100%
+    #6e7dee 100%
   );
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
@@ -33,7 +33,7 @@ export const StyledForm = styled.form`
   max-width: 600px;
   background-color: #fff;
   border-radius: 15px;
-  border: 2px solid #3748c7;
+  border: 2px solid #545fb6;
   overflow: hidden;
   background-color: transparent;
   transition: border 250ms cubic-bezier(0.4, 0, 0.2, 1);
