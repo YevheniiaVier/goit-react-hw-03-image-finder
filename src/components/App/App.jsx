@@ -22,10 +22,12 @@ export class App extends Component {
     showButton: false,
   };
   componentDidUpdate(_, prevState) {
-    const { searchQuery, page } = this.state;
+    const { searchQuery, page, gallery } = this.state;
     const prevPage = prevState.page;
     const prevSearchQuery = prevState.searchQuery;
-
+    if (gallery.length > 12) {
+      onSmoothScroll();
+    }
     if (prevPage !== page || prevSearchQuery !== searchQuery) {
       this.setState({ status: 'pending', showButton: false });
       fetchImages(searchQuery, page)
@@ -42,12 +44,10 @@ export class App extends Component {
           }
 
           if (page > 1) {
-            this.setState(prevState => ({
+            return this.setState(prevState => ({
               gallery: [...prevState.gallery, ...gallery],
               status: 'resolved',
             }));
-            onSmoothScroll();
-            return;
           }
 
           this.setState({ showButton: true });
@@ -91,6 +91,7 @@ export class App extends Component {
     return (
       <Container>
         <Searchbar onSubmit={this.handleSearchFormSubmit} />
+
         {status === 'pending' && <Loader />}
         {status === 'rejected' && <ImageAbsenceView message={error.message} />}
         {gallery[0] && (
@@ -133,7 +134,6 @@ function onSmoothScroll() {
   const { height: cardHeight } = document
     .querySelector('#gallery')
     .firstElementChild.getBoundingClientRect();
-  console.log(cardHeight);
   window.scrollBy({
     top: cardHeight * 2,
     behavior: 'smooth',
