@@ -28,6 +28,7 @@ export class App extends Component {
     if (gallery.length > 12) {
       onSmoothScroll();
     }
+
     if (prevPage !== page || prevSearchQuery !== searchQuery) {
       this.setState({ status: 'pending', showButton: false });
       fetchImages(searchQuery, page)
@@ -59,7 +60,7 @@ export class App extends Component {
   }
 
   handleSearchFormSubmit = searchQuery => {
-    this.setState({ searchQuery, page: 1 });
+    this.setState({ searchQuery, page: 1, gallery: [] });
   };
 
   loadMore = () => {
@@ -91,7 +92,6 @@ export class App extends Component {
     return (
       <Container>
         <Searchbar onSubmit={this.handleSearchFormSubmit} />
-
         {status === 'pending' && <Loader />}
         {status === 'rejected' && <ImageAbsenceView message={error.message} />}
         {gallery[0] && (

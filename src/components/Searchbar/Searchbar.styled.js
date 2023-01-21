@@ -66,7 +66,6 @@ export const StyledSearchBtn = styled.button`
   height: 48px;
   border: 0;
   background-color: transparent;
-
   background-size: 40%;
   background-repeat: no-repeat;
   background-position: center;

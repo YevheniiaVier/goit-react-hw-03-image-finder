@@ -6,7 +6,7 @@ import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 export const ImageGallery = ({ id, gallery, onImgClick }) => {
   return (
     <Gallery id={id}>
-      {gallery?.map(({ webformatURL, id, tags }) => (
+      {gallery.map(({ webformatURL, id, tags }) => (
         <ImageGalleryItem
           onImgClick={onImgClick}
           key={id}
