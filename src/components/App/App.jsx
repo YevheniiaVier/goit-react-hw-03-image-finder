@@ -25,35 +25,29 @@ export class App extends Component {
     const { searchQuery, page, gallery } = this.state;
     const prevPage = prevState.page;
     const prevSearchQuery = prevState.searchQuery;
-    if (gallery.length > 12) {
+    if (gallery.length > 12 && gallery.length !== prevState.gallery.length) {
       onSmoothScroll();
     }
-
     if (prevPage !== page || prevSearchQuery !== searchQuery) {
       this.setState({ status: 'pending', showButton: false });
       fetchImages(searchQuery, page)
-        .then(gallery => {
-          if (gallery.length <= 11 && page !== 1) {
+        .then(response => {
+          this.setState(prevState => ({
+            gallery: [...prevState.gallery, ...response],
+            status: 'resolved',
+            showButton: true,
+          }));
+
+          if (response.length === 0) {
+            this.setState({ gallery: [], showButton: false });
+            return onSearchError(searchQuery);
+          }
+          if (response.length <= 11) {
             this.setState({ showButton: false });
             onSearchEndNotice();
           } else {
             this.setState({ showButton: true });
           }
-          if (!gallery[0]) {
-            this.setState({ gallery: [], showButton: false });
-            return onSearchError(searchQuery);
-          }
-
-          if (page > 1) {
-            return this.setState(prevState => ({
-              gallery: [...prevState.gallery, ...gallery],
-              status: 'resolved',
-            }));
-          }
-
-          this.setState({ showButton: true });
-
-          return this.setState({ gallery, status: 'resolved' });
         })
         .catch(error => this.setState({ error, status: 'rejected' }));
     }
