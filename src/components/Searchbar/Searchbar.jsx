@@ -30,13 +30,14 @@ export class Searchbar extends Component {
         pauseOnHover: true,
       });
     }
+
     this.props.onSubmit(this.state.searchQuery);
     this.setState({ searchQuery: '' });
     e.currentTarget.reset();
   };
 
   render() {
-    const { searchText } = this.state;
+    const { searchQuery } = this.state;
     return (
       <StyledHeader>
         <StyledForm onSubmit={this.handleSubmit}>
@@ -48,7 +49,7 @@ export class Searchbar extends Component {
             type="text"
             autocomplete="off"
             autoFocus
-            value={searchText}
+            value={searchQuery}
             onChange={this.handleChange}
             placeholder="Search images and photos"
           />

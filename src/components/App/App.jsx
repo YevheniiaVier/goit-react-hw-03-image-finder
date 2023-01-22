@@ -25,9 +25,15 @@ export class App extends Component {
     const { searchQuery, page, gallery } = this.state;
     const prevPage = prevState.page;
     const prevSearchQuery = prevState.searchQuery;
-    if (gallery.length > 12 && gallery.length !== prevState.gallery.length) {
+
+    if (
+      gallery.length > 12 &&
+      gallery.length !== prevState.gallery.length &&
+      page !== 1
+    ) {
       onSmoothScroll();
     }
+
     if (prevPage !== page || prevSearchQuery !== searchQuery) {
       this.setState({ status: 'pending', showButton: false });
       fetchImages(searchQuery, page)
@@ -54,7 +60,9 @@ export class App extends Component {
   }
 
   handleSearchFormSubmit = searchQuery => {
-    this.setState({ searchQuery, page: 1, gallery: [] });
+    searchQuery !== this.state.searchQuery
+      ? this.setState({ searchQuery, page: 1, gallery: [] })
+      : onDoubleSearchNotice();
   };
 
   loadMore = () => {
@@ -132,4 +140,14 @@ function onSmoothScroll() {
     top: cardHeight * 2,
     behavior: 'smooth',
   });
+}
+
+function onDoubleSearchNotice() {
+  return toast.warn(
+    `Please enter new text for search, the result of current search is already shown`,
+    {
+      theme: 'colored',
+      pauseOnHover: true,
+    }
+  );
 }
